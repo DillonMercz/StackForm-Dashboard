@@ -40,7 +40,7 @@ function getUser() {
             // ...
         } else {
             // User is signed out
-            window.location.href = "./pages/sign-in.html"
+            window.location.href = "./sign-in.html"
             // ...
         }
     });
