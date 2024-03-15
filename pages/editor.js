@@ -1016,8 +1016,8 @@ var docRef = db.collection("forms").doc(docId);
 docRef.get().then(function(doc) {
     if (doc.exists) {
         var formData = doc.data();
-        var form = formData.form;
-        var questions = formData.questions;
+        var form = JSON.parse(formData.form);
+        var questions = JSON.parse(formData.questions);
         
         renderForm();
         renderQuestions();
