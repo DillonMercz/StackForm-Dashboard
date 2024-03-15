@@ -1011,19 +1011,27 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 var docId = getParameterByName('formRef');
-document.getElementById("preview").href="https://stackform.io/demo/preview?formRef="+docId
-fetch('https://stackform.obimedia.agency/forms/' + docId + '-config.js').then(v => {
-    v.text().then(txt => {
-        eval(txt)
-        window.form = form
-        window.questions = questions
-        renderForm()
-        renderQuestions()
-        renderElements()
-        window.localStorage.setItem("form", form)
-        window.localStorage.setItem("questions", questions)
+var docRef = db.collection("forms").doc(docId);
 
-    })
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        var formData = doc.data();
+        var form = formData.form;
+        var questions = formData.questions;
+        
+        renderForm();
+        renderQuestions();
+        renderElements();
+        
+        // If you need to store form data locally
+        window.localStorage.setItem("form", JSON.stringify(form));
+        window.localStorage.setItem("questions", JSON.stringify(questions));
+    } else {
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.error("Error getting document:", error);
+});
     form = window.localStorage.getItem("form")
     questions = window.localStorage.getItem("questions")
     console.log(form)
