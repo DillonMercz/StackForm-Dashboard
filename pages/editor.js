@@ -1026,13 +1026,11 @@ docRef.get().then(function(doc) {
         // If you need to store form data locally
         window.localStorage.setItem("form", JSON.stringify(form));
         window.localStorage.setItem("questions", JSON.stringify(questions));
+        console.log(form)
     } else {
         console.log("No such document!");
     }
 }).catch(function(error) {
     console.error("Error getting document:", error);
 });
-    form = window.localStorage.getItem("form")
-    questions = window.localStorage.getItem("questions")
-    console.log(form)
-})
+
